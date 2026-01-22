@@ -66,15 +66,6 @@ h1 {
     font-size: 20px;
     color: #d6336c;
     margin-top: 10px;
-}#musicToggle {
-    margin-top: 10px;
-    padding: 8px 15px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: none;
-    background: #ff85a2;
-    color: white;
-    cursor: pointer;
 }
 
 #finalScreen {
@@ -98,7 +89,7 @@ h1 {
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_3e9cc4c2d2.mp3">
 </audio>
-<button id="musicToggle">🔊 Music ON</button>
+
 <div id="game">
     <div id="boy" class="character">👦</div>
     <div id="girl" class="character">👧</div>
@@ -111,7 +102,7 @@ h1 {
 <div id="message"></div>
 
 <div id="finalScreen">
-    <h2>💖 Medea, will you be my Valentine? 💖</h2>
+    <h2>💖 Lasha, will you be my Valentine? 💖</h2>
     <div style="font-size:40px">💍💋💘</div>
 </div>
 
@@ -163,7 +154,6 @@ let current = 0;
 let boyPos = 30;
 let girlPos = window.innerWidth * 0.75;
 const step = 60;
-let musicStarted = false;
 
 const boy = document.getElementById("boy");
 const girl = document.getElementById("girl");
@@ -174,6 +164,13 @@ const music = document.getElementById("music");
 const finalScreen = document.getElementById("finalScreen");
 
 girl.style.left = girlPos + "px";
+
+// Try to auto-play music
+window.addEventListener('load', () => {
+    music.play().catch(() => {
+        console.log("Autoplay failed; music requires interaction on mobile.");
+    });
+});
 
 function showQuestion() {
     const q = questions[current];
@@ -189,12 +186,6 @@ function showQuestion() {
 }
 
 function checkAnswer(answer) {
-
-    if (!musicStarted) {
-        music.play();
-        musicStarted = true;
-    }
-
     if (answer === questions[current].correct) {
         boyPos += step;
         girlPos -= step;
