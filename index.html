@@ -66,6 +66,15 @@ h1 {
     font-size: 20px;
     color: #d6336c;
     margin-top: 10px;
+}#musicToggle {
+    margin-top: 10px;
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    background: #ff85a2;
+    color: white;
+    cursor: pointer;
 }
 
 #finalScreen {
@@ -85,10 +94,11 @@ h1 {
 <h1>💘 Valentine Love Game 💘</h1>
 <div id="names">Lasha ❤️ Medea</div>
 
+<!-- Music -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_3e9cc4c2d2.mp3">
 </audio>
-
+<button id="musicToggle">🔊 Music ON</button>
 <div id="game">
     <div id="boy" class="character">👦</div>
     <div id="girl" class="character">👧</div>
@@ -136,6 +146,16 @@ const questions = [
         q: "გაცნობიდან რამდენ ხანში გადაწყვიტე რომ მზად იყავი ერთმენთი გვენახა? ",
         options: ["1 წელი", "საუკუნე", "5 წელი"],
         correct: "საუკუნე"
+    },
+    {
+        q: "სად გითხარი პირველად რომ მიყვარხარ",
+        options: ["ლაგოდეხი", "ხაშური", "ბათუმი"],
+        correct: "ბათუმი"
+    },
+    {
+        q: "როცა ნწყენი ვარ რას შეუძლია ხასიათი გამომიკეთოს ",
+        options: ["ტკბილეული", "ვარდები", "კოცნა"],
+        correct: "კოცნა"
     }
 ];
 
@@ -200,9 +220,9 @@ function checkAnswer(answer) {
 function kiss() {
     questionDiv.innerText = "";
     answersDiv.innerHTML = "";
-    messageDiv.innerText = "💋 დაა 12 წლის შემდეგ ჩვენ შევხვდით ერთმანეთს!";
-    boy.innerText = "😍";
-    girl.innerText = "😘";
+    messageDiv.innerText = "💋 დაა როგორც იქნა 12 წლის შემდეგ ჩვენ შევხვდით ერთმანეთს!";
+    boy.innerText = "😘";
+    girl.innerText = "👧";
     finalScreen.style.display = "block";
 }
 
