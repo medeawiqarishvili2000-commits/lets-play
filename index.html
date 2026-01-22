@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lasha ❤️ Medea</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#ffe6eb, #fff);
+    text-align: center;
+    margin: 0;
+}
+
+h1 {
+    color: #d6336c;
+    margin-top: 15px;
+}
+
+#names {
+    font-size: 20px;
+    color: #c2255c;
+}
+
+#game {
+    position: relative;
+    width: 95%;
+    max-width: 700px;
+    height: 250px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 20px;
+}
+
+.character {
+    position: absolute;
+    bottom: 20px;
+    font-size: 60px;
+    transition: left 0.5s;
+}
+
+#boy { left: 30px; }
+#girl { left: calc(100% - 90px); }
+
+#question {
+    font-size: 18px;
+    margin: 15px;
+}
+
+.answers button {
+    display: block;
+    margin: 10px auto;
+    padding: 12px;
+    width: 80%;
+    max-width: 300px;
+    font-size: 16px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#message {
+    font-size: 20px;
+    color: #d6336c;
+    margin-top: 10px;
+}
+
+#finalScreen {
+    display: none;
+    margin-top: 30px;
+}
+
+#finalScreen h2 {
+    font-size: 26px;
+    color: #d6336c;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💘 Valentine Love Game 💘</h1>
+<div id="names">Lasha ❤️ Medea</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/02/23/audio_3e9cc4c2d2.mp3">
+</audio>
+
+<div id="game">
+    <div id="boy" class="character">👦</div>
+    <div id="girl" class="character">👧</div>
+</div>
+
+<div id="question"></div>
+
+<div class="answers" id="answers"></div>
+
+<div id="message"></div>
+
+<div id="finalScreen">
+    <h2>💖 Medea, will you be my Valentine? 💖</h2>
+    <div style="font-size:40px">💍💋💘</div>
+</div>
+
+<script>
+const questions = [
+    {
+        q: "როდის შევხვდით პირველად?",
+        options: ["29.12.2024", "01.01.2023", "14.02.2024"],
+        correct: "29.12.2024"
+    },
+    {
+        q: "სად ვიყავით, როცა ლაშამ გაიფიქრა: „მე ის ძალიან მიყვარს“?",
+        options: ["კიკეთი", "ვაკე", "თბილისი"],
+        correct: "კიკეთი"
+    },
+    {
+        q: "როდის არის ლაშას დაბადების დღე?",
+        options: ["13.08.2000", "14.03.2001", "10.10.1999"],
+        correct: "13.08.2000"
+    }
+];
+
+let current = 0;
+let boyPos = 30;
+let girlPos = window.innerWidth * 0.75;
+const step = 60;
+let musicStarted = false;
+
+const boy = document.getElementById("boy");
+const girl = document.getElementById("girl");
+const questionDiv = document.getElementById("question");
+const answersDiv = document.getElementById("answers");
+const messageDiv = document.getElementById("message");
+const music = document.getElementById("music");
+const finalScreen = document.getElementById("finalScreen");
+
+girl.style.left = girlPos + "px";
+
+function showQuestion() {
+    const q = questions[current];
+    questionDiv.innerText = q.q;
+    answersDiv.innerHTML = "";
+
+    q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.onclick = () => checkAnswer(option);
+        answersDiv.appendChild(btn);
+    });
+}
+
+function checkAnswer(answer) {
+
+    if (!musicStarted) {
+        music.play();
+        musicStarted = true;
+    }
+
+    if (answer === questions[current].correct) {
+        boyPos += step;
+        girlPos -= step;
+        messageDiv.innerText = "❤️ სწორი პასუხია!";
+    } else {
+        boyPos -= step;
+        girlPos += step;
+        messageDiv.innerText = "💔 არასწორი პასუხია!";
+    }
+
+    boy.style.left = boyPos + "px";
+    girl.style.left = girlPos + "px";
+
+    if (boyPos + 70 >= girlPos) {
+        kiss();
+        return;
+    }
+
+    current = (current + 1) % questions.length;
+    showQuestion();
+}
+
+function kiss() {
+    questionDiv.innerText = "";
+    answersDiv.innerHTML = "";
+    messageDiv.innerText = "💋 ლაშა და მედეა შეხვდნენ ერთმანეთს!";
+    boy.innerText = "😍";
+    girl.innerText = "😘";
+    finalScreen.style.display = "block";
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
